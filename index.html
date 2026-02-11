@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Verde Dolly */
             --primary: #00ff00;
             --accent: #008000;
             --glass: rgba(255, 255, 255, 0.1);
@@ -36,56 +35,42 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Blobs de fundo */
-        .blob {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: var(--primary);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -2;
-            opacity: 0.15;
-            animation: move 20s infinite alternate;
-        }
-
-        @keyframes move {
-            from { transform: translate(-20%, -20%); }
-            to { transform: translate(20%, 20%); }
-        }
-
         header {
             width: 100%;
             max-width: 1200px;
             padding: 40px 20px;
-            position: relative; /* Necessário para posicionar os mascotes em relação ao header */
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 250px;
         }
 
-        /* Mascote Dollynho - Fixado à esquerda */
+        /* Ajuste para o Dollynho em JPG */
         .mascot-dolly {
             position: absolute;
-            left: 20px;
-            width: 220px;
+            left: 30px;
+            width: 180px; /* Ajuste leve no tamanho para JPG */
             height: auto;
-            filter: drop-shadow(0 0 15px var(--primary));
+            border-radius: 20px; /* Arredondado para suavizar bordas do JPG */
+            filter: drop-shadow(0 0 20px var(--primary));
             transition: transform 0.3s ease;
-            transform: rotate(-5deg);
             z-index: 1;
         }
         
-        /* Mascote Duolingo - No fundo à direita */
+        .mascot-dolly:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Duolingo no fundo à direita */
         .mascot-duo {
             position: absolute;
-            right: 20px;
-            width: 200px; /* Tamanho original preservado */
+            right: 30px;
+            width: 180px;
             height: auto;
-            opacity: 0.4; /* Opacidade de fundo */
-            filter: grayscale(30%) blur(1px);
-            z-index: -1; /* Fica atrás do conteúdo */
+            opacity: 0.3;
+            filter: grayscale(20%) blur(1px);
+            z-index: -1;
             transform: rotate(10deg);
         }
 
@@ -94,44 +79,27 @@
             z-index: 2;
         }
 
-        .selector-container {
-            margin-bottom: 20px;
-        }
-
-        select {
-            background: var(--glass);
-            color: white;
-            border: 1px solid var(--glass-border);
-            padding: 10px 20px;
-            border-radius: 15px;
-            font-size: 1rem;
-            cursor: pointer;
-            outline: none;
-            backdrop-filter: blur(10px);
-        }
-
         #clock {
             font-size: 6rem;
             font-weight: 900;
             line-height: 1;
             text-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
 
-        .site-motto {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 10px;
-            text-transform: lowercase;
-            opacity: 0.9;
+        .selector-container { margin-bottom: 15px; }
+        select {
+            background: var(--glass);
+            color: white;
+            border: 1px solid var(--glass-border);
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
         }
 
-        .hero-container {
-            width: 90%;
-            max-width: 900px;
-            margin-top: 20px;
-        }
-
+        /* Estilos dos Cards */
+        .hero-container { width: 90%; max-width: 900px; margin-top: 20px; }
         .status-hero {
             background: var(--glass);
             backdrop-filter: blur(15px);
@@ -140,28 +108,19 @@
             padding: 40px;
             text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
         }
 
-        .prof-name { font-size: 3.5rem; font-weight: 900; margin: 10px 0; }
-        .progress-container { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 20px 0; overflow: hidden; }
-        .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 1s linear; }
+        .progress-container { width: 100%; height: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 25px 0; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #00ff00, #008000); width: 0%; transition: width 1s linear; }
 
         .upcoming-grid { display: grid; gap: 15px; margin-top: 20px; }
         .upcoming-card { background: var(--glass); padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--glass-border); }
 
-        footer { padding: 40px; text-align: center; margin-top: auto; }
-        .creator-name { font-size: 2.5rem; font-weight: 900; color: var(--primary); letter-spacing: 5px; }
+        footer { padding: 50px; text-align: center; margin-top: auto; }
+        .creator-name { font-size: 2.5rem; font-weight: 900; color: var(--primary); letter-spacing: 8px; }
 
-        /* Responsividade para celulares */
         @media (max-width: 850px) {
-            .mascot-dolly, .mascot-duo {
-                position: relative;
-                left: 0; right: 0;
-                width: 120px;
-                margin: 10px;
-            }
+            .mascot-dolly, .mascot-duo { position: relative; left: 0; right: 0; width: 120px; margin: 10px; }
             header { flex-direction: column; min-height: auto; }
             #clock { font-size: 4rem; }
         }
@@ -169,10 +128,8 @@
 </head>
 <body>
 
-<div class="blob"></div>
-
 <header>
-    <img src="dollynho.png" alt="Dollynho" class="mascot-dolly">
+    <img src="dollynho.jpg" alt="Dollynho" class="mascot-dolly">
     
     <div class="header-content">
         <div class="selector-container">
@@ -181,10 +138,10 @@
                 <option value="8A">8ª A</option>
             </select>
         </div>
-        <span class="class-title" id="display-class-name" style="color: var(--primary); letter-spacing: 2px;">STATUS DA SALA - 7ª B</span>
+        <span id="display-class-name" style="color: var(--primary); font-weight: 300; letter-spacing: 3px;">STATUS DA SALA - 7ª B</span>
         <div id="clock">00:00:00</div>
-        <p class="site-motto">todos os seus horários em um só lugar!</p>
-        <div id="date-text" style="opacity: 0.6;">--</div>
+        <p style="opacity: 0.8; font-weight: 600;">Seu cronograma escolar completo!</p>
+        <div id="date-text" style="opacity: 0.5; margin-top: 5px;">--</div>
     </div>
 
     <img src="duolingo.png" alt="Duolingo" class="mascot-duo">
@@ -192,28 +149,28 @@
 
 <div class="hero-container">
     <div class="status-hero">
-        <p style="text-transform: uppercase; color: var(--primary); font-weight: 600;">Aula em andamento</p>
-        <h2 id="main-prof" class="prof-name">--</h2>
-        <p id="main-subject" style="font-size: 1.5rem; opacity: 0.8;">Aguardando...</p>
+        <p style="color: var(--primary); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Aula atual</p>
+        <h2 id="main-prof" style="font-size: 3.5rem; font-weight: 900;">--</h2>
+        <p id="main-subject" style="font-size: 1.5rem; opacity: 0.8;">Carregando...</p>
         <div class="progress-container">
             <div id="main-progress" class="progress-bar"></div>
         </div>
-        <div id="main-timer" style="font-family: monospace; font-size: 1.2rem;">OFFLINE</div>
+        <div id="main-timer" style="font-family: monospace; font-size: 1.3rem; letter-spacing: 2px;">--:--</div>
     </div>
 </div>
 
 <div style="width: 90%; max-width: 900px; margin: 40px 0;">
-    <h3 style="margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">Cronograma do Dia</h3>
+    <h3 style="margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px;">Próximas Aulas</h3>
     <div id="upcoming-list" class="upcoming-grid"></div>
 </div>
 
 <footer>
-    <div style="font-size: 0.7rem; letter-spacing: 3px; opacity: 0.5;">SISTEMA DESENVOLVIDO POR</div>
+    <div style="font-size: 0.6rem; letter-spacing: 4px; opacity: 0.4; margin-bottom: 10px;">PRODUZIDO POR</div>
     <div class="creator-name">GERMANO</div>
 </footer>
 
 <script>
-    // Mantive sua lógica original de horários (allSchedules)
+    // Seus dados de horários (Mantive os mesmos da sua versão)
     const allSchedules = {
         "7B": {
             1: [
@@ -334,8 +291,8 @@
 
         if (!schedule[day]) {
             heroProf.textContent = "DESCANSO";
-            heroSub.textContent = "Fim de semana livre!";
-            heroTimer.textContent = "ATÉ SEGUNDA";
+            heroSub.textContent = "Final de semana!";
+            heroTimer.textContent = "CURTA!";
             progressBar.style.width = "0%";
             upcomingGrid.innerHTML = "";
             return;
@@ -361,7 +318,7 @@
                 const rem = eSec - timeNow;
                 const remM = Math.floor(rem/60);
                 const remS = rem % 60;
-                heroTimer.textContent = `FALTAM ${remM}m ${remS}s`;
+                heroTimer.textContent = `${remM}m ${remS}s RESTANTES`;
                 currentFound = true;
             }
 
@@ -372,22 +329,22 @@
                     <div class="upcoming-card">
                         <div>
                             <h4 style="color: var(--primary);">${c.t}</h4>
-                            <p style="font-size: 0.9rem; opacity: 0.7;">Prof. ${c.p} • Inicia às ${c.s}</p>
+                            <p style="font-size: 0.85rem; opacity: 0.6;">Prof. ${c.p} • Inicia às ${c.s}</p>
                         </div>
-                        <div style="background: var(--primary); color: black; padding: 5px 10px; border-radius: 8px; font-weight: 900; font-size: 0.7rem;">EM ${mTotal} MIN</div>
+                        <div style="background: var(--primary); color: black; padding: 4px 12px; border-radius: 8px; font-weight: 900; font-size: 0.75rem;">EM ${mTotal}m</div>
                     </div>
                 `;
             }
         });
 
         if (!currentFound) {
-            heroProf.textContent = "HORA VAGA";
-            heroSub.textContent = "Nenhuma aula no momento";
+            heroProf.textContent = "VAGO";
+            heroSub.textContent = "Sem aulas no momento";
             heroTimer.textContent = "--:--";
             progressBar.style.width = "0%";
         }
 
-        upcomingGrid.innerHTML = upcomingHTML || "<p style='opacity:0.5; text-align:center;'>As aulas por hoje acabaram. Bom descanso!</p>";
+        upcomingGrid.innerHTML = upcomingHTML || "<p style='opacity:0.4;'>Cronograma concluído por hoje!</p>";
     }
 
     setInterval(update, 1000);
