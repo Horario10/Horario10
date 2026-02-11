@@ -36,6 +36,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* Blobs de fundo */
         .blob {
             position: fixed;
             width: 500px;
@@ -43,7 +44,7 @@
             background: var(--primary);
             filter: blur(80px);
             border-radius: 50%;
-            z-index: -1;
+            z-index: -2;
             opacity: 0.15;
             animation: move 20s infinite alternate;
         }
@@ -54,32 +55,43 @@
         }
 
         header {
-            width: 95%;
+            width: 100%;
             max-width: 1200px;
-            padding: 30px 20px;
-            animation: fadeInDown 1s ease-out;
+            padding: 40px 20px;
+            position: relative; /* Necessário para posicionar os mascotes em relação ao header */
             display: flex;
-            align-items: center; 
-            justify-content: center; 
-            gap: 40px; 
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
         }
 
-        .mascot {
-            width: 250px; 
+        /* Mascote Dollynho - Fixado à esquerda */
+        .mascot-dolly {
+            position: absolute;
+            left: 20px;
+            width: 220px;
             height: auto;
             filter: drop-shadow(0 0 15px var(--primary));
             transition: transform 0.3s ease;
             transform: rotate(-5deg);
-            flex-shrink: 0; 
+            z-index: 1;
         }
         
-        .mascot:hover {
-            transform: scale(1.05) rotate(0deg);
+        /* Mascote Duolingo - No fundo à direita */
+        .mascot-duo {
+            position: absolute;
+            right: 20px;
+            width: 200px; /* Tamanho original preservado */
+            height: auto;
+            opacity: 0.4; /* Opacidade de fundo */
+            filter: grayscale(30%) blur(1px);
+            z-index: -1; /* Fica atrás do conteúdo */
+            transform: rotate(10deg);
         }
 
         .header-content {
             text-align: center;
-            flex: 1;
+            z-index: 2;
         }
 
         .selector-container {
@@ -98,165 +110,60 @@
             backdrop-filter: blur(10px);
         }
 
-        select option { background: #0a2e0a; }
-
-        .class-title { 
-            font-size: 0.9rem; 
-            text-transform: uppercase; 
-            letter-spacing: 5px; 
-            font-weight: 300;
-            margin-bottom: 10px;
-            display: block;
-            color: var(--primary);
-        }
-
         #clock {
             font-size: 6rem;
             font-weight: 900;
             line-height: 1;
             text-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         .site-motto {
             font-weight: 600;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-transform: lowercase;
             opacity: 0.9;
         }
 
-        #date-text { opacity: 0.6; font-size: 1.1rem; }
-
         .hero-container {
             width: 90%;
             max-width: 900px;
-            perspective: 1000px;
             margin-top: 20px;
         }
 
         .status-hero {
             background: var(--glass);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 30px;
-            padding: 50px;
+            padding: 40px;
             text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
-        .prof-label { font-size: 1rem; color: var(--primary); font-weight: 600; text-transform: uppercase; }
-        .prof-name { font-size: 4rem; font-weight: 900; margin: 10px 0; letter-spacing: -1px; }
-        .subject-now { font-size: 1.8rem; opacity: 0.8; margin-bottom: 30px; }
+        .prof-name { font-size: 3.5rem; font-weight: 900; margin: 10px 0; }
+        .progress-container { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 1s linear; }
 
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            width: 0%;
-            transition: width 1s linear;
-            box-shadow: 0 0 15px var(--primary);
-        }
+        .upcoming-grid { display: grid; gap: 15px; margin-top: 20px; }
+        .upcoming-card { background: var(--glass); padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--glass-border); }
 
-        .time-badge {
-            font-family: monospace;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.3);
-            padding: 8px 20px;
-            border-radius: 50px;
-        }
+        footer { padding: 40px; text-align: center; margin-top: auto; }
+        .creator-name { font-size: 2.5rem; font-weight: 900; color: var(--primary); letter-spacing: 5px; }
 
-        .main-content { 
-            width: 90%; 
-            max-width: 900px; 
-            margin: 50px 0; 
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .section-title { font-size: 1.5rem; margin-bottom: 25px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--glass-border); }
-
-        .upcoming-grid { display: grid; gap: 15px; }
-
-        .upcoming-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 20px 30px;
-            border-radius: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .upcoming-card:hover {
-            transform: scale(1.02) translateX(10px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary);
-        }
-
-        .countdown { 
-            background: var(--primary); 
-            color: black;
-            padding: 5px 15px; 
-            border-radius: 10px; 
-            font-weight: 900; 
-            font-size: 0.8rem;
-        }
-
-        .coming-soon-notice {
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: var(--text);
-            opacity: 0.7;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        footer { margin-top: auto; padding: 60px; text-align: center; }
-        .creator-name {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(to bottom, #fff, #00ff00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 10px;
-        }
-
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-
+        /* Responsividade para celulares */
         @media (max-width: 850px) {
-            header {
-                flex-direction: column; 
-                gap: 20px;
+            .mascot-dolly, .mascot-duo {
+                position: relative;
+                left: 0; right: 0;
+                width: 120px;
+                margin: 10px;
             }
-            .mascot {
-                width: 200px; 
-                transform: rotate(0deg); 
-            }
+            header { flex-direction: column; min-height: auto; }
             #clock { font-size: 4rem; }
-            .prof-name { font-size: 2.5rem; }
-            .creator-name { font-size: 2rem; }
-        }
-
-        @media (max-width: 600px) {
-             #clock { font-size: 3.5rem; }
         }
     </style>
 </head>
@@ -265,7 +172,7 @@
 <div class="blob"></div>
 
 <header>
-    <img src="dollynho.png" alt="Dollynho Seu Amiguinho" class="mascot">
+    <img src="dollynho.png" alt="Dollynho" class="mascot-dolly">
     
     <div class="header-content">
         <div class="selector-container">
@@ -274,40 +181,42 @@
                 <option value="8A">8ª A</option>
             </select>
         </div>
-        <span class="class-title" id="display-class-name">Status da Sala - 7ª B</span>
+        <span class="class-title" id="display-class-name" style="color: var(--primary); letter-spacing: 2px;">STATUS DA SALA - 7ª B</span>
         <div id="clock">00:00:00</div>
-        <p class="site-motto">neste site voce tera todos os seus horarios!</p>
-        <div id="date-text">--</div>
+        <p class="site-motto">todos os seus horários em um só lugar!</p>
+        <div id="date-text" style="opacity: 0.6;">--</div>
     </div>
+
+    <img src="duolingo.png" alt="Duolingo" class="mascot-duo">
 </header>
 
 <div class="hero-container">
     <div class="status-hero">
-        <p class="prof-label">Aula em andamento</p>
+        <p style="text-transform: uppercase; color: var(--primary); font-weight: 600;">Aula em andamento</p>
         <h2 id="main-prof" class="prof-name">--</h2>
-        <p id="main-subject" class="subject-now">Aguardando...</p>
+        <p id="main-subject" style="font-size: 1.5rem; opacity: 0.8;">Aguardando...</p>
         <div class="progress-container">
             <div id="main-progress" class="progress-bar"></div>
         </div>
-        <div id="main-timer" class="time-badge">OFFLINE</div>
+        <div id="main-timer" style="font-family: monospace; font-size: 1.2rem;">OFFLINE</div>
     </div>
 </div>
 
-<div class="main-content">
-    <h3 class="section-title">Cronograma do dia</h3>
+<div style="width: 90%; max-width: 900px; margin: 40px 0;">
+    <h3 style="margin-bottom: 20px; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">Cronograma do Dia</h3>
     <div id="upcoming-list" class="upcoming-grid"></div>
 </div>
 
 <footer>
-    <div class="coming-soon-notice">⚠️ Em breve, cronogramas de todas as salas disponíveis</div>
     <div style="font-size: 0.7rem; letter-spacing: 3px; opacity: 0.5;">SISTEMA DESENVOLVIDO POR</div>
     <div class="creator-name">GERMANO</div>
 </footer>
 
 <script>
+    // Mantive sua lógica original de horários (allSchedules)
     const allSchedules = {
         "7B": {
-            1: [ // Segunda
+            1: [
                 { s: "07:30", e: "08:20", t: "História", p: "Francielle" },
                 { s: "08:20", e: "09:10", t: "História", p: "Francielle" },
                 { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
@@ -316,7 +225,7 @@
                 { s: "11:10", e: "12:00", t: "P.T.", p: "Ana Paula" },
                 { s: "12:00", e: "12:50", t: "Ciências", p: "Valdemar" }
             ],
-            2: [ // Terça
+            2: [
                 { s: "07:30", e: "08:20", t: "Gramática", p: "Adília" },
                 { s: "08:20", e: "09:10", t: "Intel. Cria. e Dig.", p: "Flávia" },
                 { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
@@ -324,7 +233,7 @@
                 { s: "10:20", e: "11:10", t: "Ed. Física", p: "Marcelo" },
                 { s: "11:10", e: "12:00", t: "Laboratório", p: "Mª Catarina" }
             ],
-            3: [ // Quarta
+            3: [
                 { s: "07:30", e: "08:20", t: "Inglês", p: "Mônica" },
                 { s: "08:20", e: "09:10", t: "Artes", p: "Claudio" },
                 { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
@@ -332,7 +241,7 @@
                 { s: "10:20", e: "11:10", t: "P.T.", p: "Ana Paula" },
                 { s: "11:10", e: "12:00", t: "Ed. Física", p: "Marcelo" }
             ],
-            4: [ // Quinta
+            4: [
                 { s: "07:30", e: "08:20", t: "Prat. Leit. e Escrita", p: "Paula M." },
                 { s: "08:20", e: "09:10", t: "Oficina de Inglês", p: "Priscila" },
                 { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
@@ -340,7 +249,7 @@
                 { s: "10:20", e: "11:10", t: "Gramática", p: "Adília" },
                 { s: "11:10", e: "12:00", t: "Gramática", p: "Adília" }
             ],
-            5: [ // Sexta
+            5: [
                 { s: "07:30", e: "08:20", t: "P.T.", p: "Ana Paula" },
                 { s: "08:20", e: "09:10", t: "Geografia", p: "Wilson" },
                 { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
@@ -350,7 +259,7 @@
             ]
         },
         "8A": {
-            1: [ // Segunda
+            1: [
                 { s: "07:30", e: "08:20", t: "Matemática", p: "Denice" },
                 { s: "08:20", e: "09:10", t: "Matemática", p: "Denice" },
                 { s: "09:10", e: "10:00", t: "Artes", p: "Claudio" },
@@ -358,7 +267,7 @@
                 { s: "10:20", e: "11:10", t: "Ciências", p: "Valdemar" },
                 { s: "11:10", e: "12:00", t: "P.T.", p: "Estrela" }
             ],
-            2: [ // Terça
+            2: [
                 { s: "07:30", e: "08:20", t: "Intel. Cria. E Dig.", p: "Flávia" },
                 { s: "08:20", e: "09:10", t: "Inglês", p: "Mônica" },
                 { s: "09:10", e: "10:00", t: "Ed. Física", p: "Raphael" },
@@ -367,7 +276,7 @@
                 { s: "11:10", e: "12:00", t: "Inglês", p: "Mônica" },
                 { s: "12:00", e: "12:50", t: "Matemática", p: "Denice" }
             ],
-            3: [ // Quarta
+            3: [
                 { s: "07:30", e: "08:20", t: "História", p: "Cibele" },
                 { s: "08:20", e: "09:10", t: "Laboratório", p: "Mª Catarina" },
                 { s: "09:10", e: "10:00", t: "Gramática", p: "Adília" },
@@ -376,7 +285,7 @@
                 { s: "11:10", e: "12:00", t: "P.T.", p: "Estrela" },
                 { s: "12:00", e: "12:50", t: "Matemática", p: "Denice" }
             ],
-            4: [ // Quinta
+            4: [
                 { s: "07:30", e: "08:20", t: "Geografia", p: "Wilson" },
                 { s: "08:20", e: "09:10", t: "Prat. Leit. e Escrita", p: "Paula M." },
                 { s: "09:10", e: "10:00", t: "Gramática", p: "Adília" },
@@ -384,7 +293,7 @@
                 { s: "10:20", e: "11:10", t: "Ed. Física", p: "Raphael" },
                 { s: "11:10", e: "12:00", t: "Oficina de Inglês", p: "Priscila" }
             ],
-            5: [ // Sexta
+            5: [
                 { s: "07:30", e: "08:20", t: "Matemática", p: "Denice" },
                 { s: "08:20", e: "09:10", t: "História", p: "Cibele" },
                 { s: "09:10", e: "10:00", t: "P.T.", p: "Estrela" },
@@ -400,7 +309,7 @@
     function changeClass() {
         currentClass = document.getElementById('class-selector').value;
         const names = { "7B": "7ª B", "8A": "8ª A" };
-        document.getElementById('display-class-name').textContent = `Status da Sala - ${names[currentClass]}`;
+        document.getElementById('display-class-name').textContent = `STATUS DA SALA - ${names[currentClass]}`;
         update();
     }
 
@@ -461,11 +370,11 @@
                 const mTotal = Math.floor(diff / 60);
                 upcomingHTML += `
                     <div class="upcoming-card">
-                        <div class="card-info">
-                            <h4>${c.t}</h4>
-                            <p>Prof. ${c.p} • Inicia às ${c.s}</p>
+                        <div>
+                            <h4 style="color: var(--primary);">${c.t}</h4>
+                            <p style="font-size: 0.9rem; opacity: 0.7;">Prof. ${c.p} • Inicia às ${c.s}</p>
                         </div>
-                        <div class="countdown">EM ${mTotal} MIN</div>
+                        <div style="background: var(--primary); color: black; padding: 5px 10px; border-radius: 8px; font-weight: 900; font-size: 0.7rem;">EM ${mTotal} MIN</div>
                     </div>
                 `;
             }
