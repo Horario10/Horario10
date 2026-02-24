@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>7ª B | Dashboard Ultra</title>
+    <title>7ª B | Dashboard Ultra + Gemini AI</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,185 +35,56 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Elementos Flutuantes de Fundo */
         .blob {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            background: var(--primary);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
-            opacity: 0.2;
+            position: fixed; width: 500px; height: 500px; background: var(--primary);
+            filter: blur(80px); border-radius: 50%; z-index: -1; opacity: 0.2;
             animation: move 20s infinite alternate;
         }
 
-        @keyframes move {
-            from { transform: translate(-20%, -20%); }
-            to { transform: translate(20%, 20%); }
-        }
+        @keyframes move { from { transform: translate(-20%, -20%); } to { transform: translate(20%, 20%); } }
 
-        header {
-            width: 100%;
-            padding: 40px 20px;
-            text-align: center;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .class-title { 
-            font-size: 0.9rem; 
-            text-transform: uppercase; 
-            letter-spacing: 5px; 
-            font-weight: 300;
-            margin-bottom: 10px;
-            display: block;
-            color: var(--primary);
-        }
-
-        #clock {
-            font-size: 6rem;
-            font-weight: 900;
-            line-height: 1;
-            text-shadow: 0 0 30px rgba(255, 62, 62, 0.5);
-            margin-bottom: 5px;
-        }
-
+        header { width: 100%; padding: 40px 20px; text-align: center; }
+        .class-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 5px; color: var(--primary); }
+        #clock { font-size: 6rem; font-weight: 900; text-shadow: 0 0 30px rgba(255, 62, 62, 0.5); }
         #date-text { opacity: 0.6; font-size: 1.1rem; }
 
-        /* Card de Aula Atual */
-        .hero-container {
-            width: 90%;
-            max-width: 900px;
-            perspective: 1000px;
-            margin-top: 20px;
-        }
-
+        /* HERO CARD */
+        .hero-container { width: 90%; max-width: 900px; margin-top: 20px; }
         .status-hero {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 50px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            animation: zoomIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 30px; padding: 50px; text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3); position: relative; overflow: hidden;
         }
+        .prof-name { font-size: 4rem; font-weight: 900; margin: 10px 0; }
+        .progress-container { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); width: 0%; transition: width 1s linear; }
 
-        .status-hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .status-hero:hover::before { left: 100%; transition: 0.8s; }
-
-        .prof-label { font-size: 1rem; color: var(--primary); font-weight: 600; text-transform: uppercase; }
-        .prof-name { font-size: 4rem; font-weight: 900; margin: 10px 0; letter-spacing: -1px; }
-        .subject-now { font-size: 1.8rem; opacity: 0.8; margin-bottom: 30px; }
-
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            width: 0%;
-            transition: width 1s linear;
-            box-shadow: 0 0 15px var(--primary);
-        }
-
-        .time-badge {
-            font-family: monospace;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            background: rgba(0,0,0,0.3);
-            padding: 8px 20px;
-            border-radius: 50px;
-        }
-
-        /* Lista de Próximas Aulas */
-        .main-content { 
-            width: 90%; 
-            max-width: 900px; 
-            margin: 50px 0; 
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .section-title { font-size: 1.5rem; margin-bottom: 25px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .section-title::after { content: ''; flex: 1; height: 1px; background: var(--glass-border); }
-
-        .upcoming-grid {
-            display: grid;
-            gap: 15px;
-        }
-
+        /* UPCOMING LIST */
+        .main-content { width: 90%; max-width: 900px; margin: 50px 0; }
+        .upcoming-grid { display: grid; gap: 15px; }
         .upcoming-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            padding: 20px 30px;
-            border-radius: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--glass); border: 1px solid var(--glass-border); padding: 20px;
+            border-radius: 20px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .upcoming-card:hover {
-            transform: scale(1.02) translateX(10px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--primary);
+        /* CHATBOT UI */
+        #chat-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; }
+        #chat-container {
+            width: 320px; height: 450px; background: rgba(15, 12, 41, 0.95); backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 20px; margin-bottom: 15px;
+            display: none; flex-direction: column; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
+        #chat-header { background: var(--primary); padding: 15px; font-weight: 600; display: flex; justify-content: space-between; }
+        #chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        .msg { padding: 8px 12px; border-radius: 12px; max-width: 85%; line-height: 1.4; }
+        .msg.bot { background: var(--glass); align-self: flex-start; }
+        .msg.user { background: var(--primary); align-self: flex-end; }
+        #chat-input-area { padding: 10px; display: flex; gap: 5px; border-top: 1px solid var(--glass-border); }
+        #chat-input { background: transparent; border: 1px solid var(--glass-border); color: white; padding: 10px; border-radius: 10px; flex: 1; outline: none; }
+        #chat-trigger { width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 62, 62, 0.4); }
 
-        .card-info h4 { font-size: 1.3rem; margin-bottom: 5px; }
-        .card-info p { font-size: 0.9rem; opacity: 0.6; }
-        .countdown { 
-            background: var(--primary); 
-            padding: 5px 15px; 
-            border-radius: 10px; 
-            font-weight: 900; 
-            font-size: 0.8rem;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 60px;
-            text-align: center;
-        }
-
-        .creator-name {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(to bottom, #fff, #666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 10px;
-        }
-
-        /* Animações */
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-
-        @media (max-width: 600px) {
-            #clock { font-size: 3.5rem; }
-            .prof-name { font-size: 2.2rem; }
-            .creator-name { font-size: 1.5rem; }
-            .status-hero { padding: 30px 20px; }
-        }
+        footer { padding: 60px; text-align: center; }
+        .creator-name { font-size: 2rem; font-weight: 900; letter-spacing: 10px; opacity: 0.5; }
     </style>
 </head>
 <body>
@@ -239,82 +110,55 @@
 </div>
 
 <div class="main-content">
-    <h3 class="section-title">Cronograma do dia</h3>
+    <h3 style="margin-bottom: 20px;">Cronograma do dia</h3>
     <div id="upcoming-list" class="upcoming-grid"></div>
 </div>
 
+<div id="chat-wrapper">
+    <div id="chat-container">
+        <div id="chat-header">
+            <span>Assistente Gemini 7ª B</span>
+            <span style="cursor:pointer" onclick="toggleChat()">×</span>
+        </div>
+        <div id="chat-messages">
+            <div class="msg bot">E aí! Sou o Gemini. Pode perguntar sobre as aulas de hoje!</div>
+        </div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Que aula temos agora?">
+            <button onclick="handleUserMessage()" style="background:var(--primary); border:none; color:white; padding:10px; border-radius:10px; cursor:pointer;">➔</button>
+        </div>
+    </div>
+    <div id="chat-trigger" onclick="toggleChat()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    </div>
+</div>
+
 <footer>
-    <div style="font-size: 0.7rem; letter-spacing: 3px; opacity: 0.5;">SISTEMA DESENVOLVIDO POR</div>
     <div class="creator-name">GERMANO</div>
 </footer>
 
 <script>
     const schedule = {
-        1: [ // Segunda
-            { s: "07:30", e: "08:20", t: "História", p: "Francielle" },
-            { s: "08:20", e: "09:10", t: "História", p: "Francielle" },
-            { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
-            { s: "09:30", e: "10:20", t: "Matemática", p: "Denice" },
-            { s: "10:20", e: "11:10", t: "Matemática", p: "Denice" },
-            { s: "11:10", e: "12:00", t: "P.T.", p: "Ana Paula" },
-            { s: "12:00", e: "12:50", t: "Ciências", p: "Valdemar" }
-        ],
-        2: [ // Terça
-            { s: "07:30", e: "08:20", t: "Gramática", p: "Adília" },
-            { s: "08:20", e: "09:10", t: "Intel. Cria. e Dig.", p: "Flávia" },
-            { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
-            { s: "09:30", e: "10:20", t: "Matemática", p: "Denice" },
-            { s: "10:20", e: "11:10", t: "Ed. Física", p: "Marcelo" },
-            { s: "11:10", e: "12:00", t: "Laboratório", p: "Mª Catarina" }
-        ],
-        3: [ // Quarta
-            { s: "07:30", e: "08:20", t: "Inglês", p: "Mônica" },
-            { s: "08:20", e: "09:10", t: "Artes", p: "Claudio" },
-            { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
-            { s: "09:30", e: "10:20", t: "Ciências", p: "Valdemar" },
-            { s: "10:20", e: "11:10", t: "P.T.", p: "Ana Paula" },
-            { s: "11:10", e: "12:00", t: "Ed. Física", p: "Marcelo" }
-        ],
-        4: [ // Quinta
-            { s: "07:30", e: "08:20", t: "Prat. Leit. e Escrita", p: "Paula M." },
-            { s: "08:20", e: "09:10", t: "Oficina de Inglês", p: "Priscila" },
-            { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
-            { s: "09:30", e: "10:20", t: "Inglês", p: "Mônica" },
-            { s: "10:20", e: "11:10", t: "Gramática", p: "Adília" },
-            { s: "11:10", e: "12:00", t: "Gramática", p: "Adília" }
-        ],
-        5: [ // Sexta
-            { s: "07:30", e: "08:20", t: "P.T.", p: "Ana Paula" },
-            { s: "08:20", e: "09:10", t: "Geografia", p: "Wilson" },
-            { s: "09:10", e: "09:30", t: "INTERVALO", p: "Pátio", b: true },
-            { s: "09:30", e: "10:20", t: "Geografia", p: "Wilson" },
-            { s: "10:20", e: "11:10", t: "Matemática", p: "Denice" },
-            { s: "11:10", e: "12:00", t: "Matemática", p: "Denice" }
-        ]
+        1: [{s:"07:30",e:"08:20",t:"História",p:"Francielle"},{s:"08:20",e:"09:10",t:"História",p:"Francielle"},{s:"09:10",e:"09:30",t:"INTERVALO",p:"Pátio",b:true},{s:"09:30",e:"10:20",t:"Matemática",p:"Denice"},{s:"10:20",e:"11:10",t:"Matemática",p:"Denice"},{s:"11:10",e:"12:00",t:"P.T.",p:"Ana Paula"},{s:"12:00",e:"12:50",t:"Ciências",p:"Valdemar"}],
+        2: [{s:"07:30",e:"08:20",t:"Gramática",p:"Adília"},{s:"08:20",e:"09:10",t:"Intel. Cria. e Dig.",p:"Flávia"},{s:"09:10",e:"09:30",t:"INTERVALO",p:"Pátio",b:true},{s:"09:30",e:"10:20",t:"Matemática",p:"Denice"},{s:"10:20",e:"11:10",t:"Ed. Física",p:"Marcelo"},{s:"11:10",e:"12:00",t:"Laboratório",p:"Mª Catarina"}],
+        3: [{s:"07:30",e:"08:20",t:"Inglês",p:"Mônica"},{s:"08:20",e:"09:10",t:"Artes",p:"Claudio"},{s:"09:10",e:"09:30",t:"INTERVALO",p:"Pátio",b:true},{s:"09:30",e:"10:20",t:"Ciências",p:"Valdemar"},{s:"10:20",e:"11:10",t:"P.T.",p:"Ana Paula"},{s:"11:10",e:"12:00",t:"Ed. Física",p:"Marcelo"}],
+        4: [{s:"07:30",e:"08:20",t:"Prat. Leit. e Escrita",p:"Paula M."},{s:"08:20",e:"09:10",t:"Oficina de Inglês",p:"Priscila"},{s:"09:10",e:"09:30",t:"INTERVALO",p:"Pátio",b:true},{s:"09:30",e:"10:20",t:"Inglês",p:"Mônica"},{s:"10:20",e:"11:10",t:"Gramática",p:"Adília"},{s:"11:10",e:"12:00",t:"Gramática",p:"Adília"}],
+        5: [{s:"07:30",e:"08:20",t:"P.T.",p:"Ana Paula"},{s:"08:20",e:"09:10",t:"Geografia",p:"Wilson"},{s:"09:10",e:"09:30",t:"INTERVALO",p:"Pátio",b:true},{s:"09:30",e:"10:20",t:"Geografia",p:"Wilson"},{s:"10:20",e:"11:10",t:"Matemática",p:"Denice"},{s:"11:10",e:"12:00",t:"Matemática",p:"Denice"}]
     };
+
+    const API_KEY = "299560cafe16094f3174158f8d68e7162662bf93";
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     function update() {
         const now = new Date();
         const day = now.getDay();
-        const h = now.getHours();
-        const m = now.getMinutes();
-        const s = now.getSeconds();
-        const timeNow = (h * 3600) + (m * 60) + s;
+        const timeNow = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
 
         document.getElementById('clock').textContent = now.toLocaleTimeString('pt-BR');
         document.getElementById('date-text').textContent = now.toLocaleDateString('pt-BR', {weekday: 'long', day: 'numeric', month: 'long'});
 
-        const upcomingGrid = document.getElementById('upcoming-list');
-        const heroProf = document.getElementById('main-prof');
-        const heroSub = document.getElementById('main-subject');
-        const heroTimer = document.getElementById('main-timer');
-        const progressBar = document.getElementById('main-progress');
-
         if (!schedule[day]) {
-            heroProf.textContent = "DESCANSO";
-            heroSub.textContent = "Fim de semana livre!";
-            heroTimer.textContent = "ATÉ SEGUNDA";
-            progressBar.style.width = "0%";
+            document.getElementById('main-prof').textContent = "DESCANSO";
             return;
         }
 
@@ -328,48 +172,68 @@
             const eSec = (eH * 3600) + (eM * 60);
 
             if (timeNow >= sSec && timeNow < eSec) {
-                heroProf.textContent = c.p;
-                heroSub.textContent = c.t;
-                const total = eSec - sSec;
-                const elapsed = timeNow - sSec;
-                const perc = (elapsed / total) * 100;
-                progressBar.style.width = perc + "%";
-                
+                document.getElementById('main-prof').textContent = c.p;
+                document.getElementById('main-subject').textContent = c.t;
+                const perc = ((timeNow - sSec) / (eSec - sSec)) * 100;
+                document.getElementById('main-progress').style.width = perc + "%";
                 const rem = eSec - timeNow;
-                const remM = Math.floor(rem/60);
-                const remS = rem % 60;
-                heroTimer.textContent = `FALTAM ${remM}m ${remS}s`;
+                document.getElementById('main-timer').textContent = `FALTAM ${Math.floor(rem/60)}m ${rem%60}s`;
                 currentFound = true;
             }
 
             if (timeNow < sSec) {
-                const diff = sSec - timeNow;
-                const m = Math.floor(diff / 60);
-                upcomingHTML += `
-                    <div class="upcoming-card">
-                        <div class="card-info">
-                            <h4>${c.t}</h4>
-                            <p>Prof. ${c.p} • Inicia às ${c.s}</p>
-                        </div>
-                        <div class="countdown">EM ${m} MIN</div>
-                    </div>
-                `;
+                upcomingHTML += `<div class="upcoming-card"><div><h4>${c.t}</h4><p>${c.p} • ${c.s}</p></div><div class="countdown">EM ${Math.floor((sSec-timeNow)/60)} MIN</div></div>`;
             }
         });
 
         if (!currentFound) {
-            heroProf.textContent = "HORA VAGA";
-            heroSub.textContent = "Nenhuma aula no momento";
-            heroTimer.textContent = "--:--";
-            progressBar.style.width = "0%";
+            document.getElementById('main-prof').textContent = "FORA DE AULA";
+            document.getElementById('main-progress').style.width = "0%";
         }
-
-        upcomingGrid.innerHTML = upcomingHTML || "<p style='opacity:0.5; text-align:center;'>As aulas por hoje acabaram. Bom descanso!</p>";
+        document.getElementById('upcoming-list').innerHTML = upcomingHTML || "<p>Fim do expediente!</p>";
     }
 
+    function toggleChat() {
+        const chat = document.getElementById('chat-container');
+        chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function addMessage(text, side, id = null) {
+        const msg = document.createElement('div');
+        msg.className = `msg ${side}`;
+        if(id) msg.id = id;
+        msg.textContent = text;
+        document.getElementById('chat-messages').appendChild(msg);
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+    }
+
+    async function handleUserMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if(!text) return;
+
+        addMessage(text, 'user');
+        input.value = '';
+        const tid = "t-" + Date.now();
+        addMessage("...", "bot", tid);
+
+        try {
+            const context = `Você é o assistente da sala 7ª B. Seja engraçado e direto. Dados da sala: ${JSON.stringify(schedule)}`;
+            const resp = await fetch(API_URL, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ contents: [{ parts: [{ text: `${context}\nPergunta: ${text}` }] }] })
+            });
+            const data = await resp.json();
+            document.getElementById(tid).textContent = data.candidates[0].content.parts[0].text;
+        } catch (e) {
+            document.getElementById(tid).textContent = "Erro na conexão. A API está ativa?";
+        }
+    }
+
+    document.getElementById('chat-input').addEventListener('keypress', (e) => e.key === 'Enter' && handleUserMessage());
     setInterval(update, 1000);
     update();
 </script>
-
 </body>
 </html>
