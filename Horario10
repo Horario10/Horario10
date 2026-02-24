@@ -370,6 +370,52 @@
     setInterval(update, 1000);
     update();
 </script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
+<script>
+  // 2. Suas configurações (peguei direto da sua imagem!)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDM7Vl3OVqFZ25gssDvTQGk7bcMMlZ_mi0",
+    authDomain: "dashboard-7b.firebaseapp.com",
+    databaseURL: "https://dashboard-7b-default-rtdb.firebaseio.com",
+    projectId: "dashboard-7b",
+    storageBucket: "dashboard-7b.appspot.com",
+    messagingSenderId: "916547246679",
+    appId: "1:916547246679:web:3e6d78a7f698c7a4dbe112",
+    measurementId: "G-HYR00F719F"
+  };
+
+  // 3. Inicializa o Firebase
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // --- LÓGICA DE LOG DO GERMANO ---
+  const sessionRef = database.ref('logs').push();
+  const entryTime = Date.now();
+
+  // Grava quem entrou
+  sessionRef.set({
+    dispositivo: navigator.userAgent.includes("Mobi") ? "Celular" : "Computador",
+    entrada: new Date().toLocaleTimeString('pt-BR'),
+    data: new Date().toLocaleDateString('pt-BR'),
+    status: "Online"
+  });
+
+  // Grava quando saiu (mesmo se fechar a aba rápido)
+  sessionRef.onDisconnect().update({
+    saida: new Date().toLocaleTimeString('pt-BR'),
+    status: "Offline"
+  });
+
+  window.addEventListener('beforeunload', () => {
+    const duration = Math.floor((Date.now() - entryTime) / 60000);
+    sessionRef.update({
+        saida: new Date().toLocaleTimeString('pt-BR'),
+        permanencia: duration + " min",
+        status: "Finalizado"
+    });
+  });
+</script>
 </body>
 </html>
